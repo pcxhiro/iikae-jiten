@@ -13,7 +13,12 @@
 
 必要な環境変数（GitHub Secrets）:
   GEMINI_API_KEY, YT_CLIENT_ID, YT_CLIENT_SECRET, YT_REFRESH_TOKEN,
-  SHEET_ID, GEMINI_MODEL（任意）, VIDEO_PRIVACY（任意）
+  SHEETS_REFRESH_TOKEN, SHEET_ID,
+  GEMINI_MODEL（任意）, VIDEO_PRIVACY（任意）
+  ※合鍵は2本制。YT_REFRESH_TOKEN は投稿用（YouTubeスコープのみ・
+    新チャンネルで取得）、SHEETS_REFRESH_TOKEN は記録用
+    （spreadsheetsスコープのみ・メインアカウントで取得）。
+    SHEETS_REFRESH_TOKEN が未設定なら YT_REFRESH_TOKEN で代用する。
 """
 import datetime
 import os
@@ -24,7 +29,7 @@ import cards
 import compose
 import script_gen
 import tts_voice
-from sheets_api import Sheets
+from sheets_api import Sheets, make_sheets_credentials
 from youtube_api import YouTube, make_credentials
 
 JST = ZoneInfo("Asia/Tokyo")
@@ -69,7 +74,9 @@ def main():
 
     creds = make_credentials(env("YT_CLIENT_ID"), env("YT_CLIENT_SECRET"),
                              env("YT_REFRESH_TOKEN"))
-    sheets = Sheets(creds, env("SHEET_ID"))
+    sheets = Sheets(make_sheets_credentials(env("YT_CLIENT_ID"),
+                                            env("YT_CLIENT_SECRET")),
+                    env("SHEET_ID"))
     sheets.ensure_tabs()
     yt = YouTube(creds)
 
