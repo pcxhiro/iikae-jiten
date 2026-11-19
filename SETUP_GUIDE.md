@@ -390,3 +390,9 @@ https://www.googleapis.com/auth/spreadsheets
   Sheets 専用の認証情報（`SHEETS_REFRESH_TOKEN` 優先、未設定なら
   `YT_REFRESH_TOKEN` にフォールバック）を組み立てるようにし、
   ワークフローにも `SHEETS_REFRESH_TOKEN` を追加しました。
+- 初回テスト（2026-11-19）で追加判明： youtube_api.py の SCOPES に
+  spreadsheets が残っていると、合鍵Aの更新（refresh）のたびに未付与の
+  スコープまで要求して Google に access_denied (Account Restricted) で
+  拒否され、アップロードが失敗します。SCOPES は YouTube 系3つだけに
+  すること（修正後にテスト成功・初投稿を確認）。ひとことポスト側は
+  メインアカウントの合鍵なので、この問題は起きません。
