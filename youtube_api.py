@@ -9,11 +9,15 @@ from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
 
+# 注意：このチャンネルはブランドアカウントのため、YouTube用の合鍵Aには
+# YouTube系スコープしか付いていない。ここに spreadsheets を含めると、
+# トークン更新（refresh）のたびに未付与のスコープまで要求してしまい、
+# Googleに access_denied (Account Restricted) で拒否される（2026-11-19 実測）。
+# スプレッドシート用スコープは sheets_api.py 側（合鍵B）だけが持つ。
 SCOPES = [
     "https://www.googleapis.com/auth/youtube.upload",
     "https://www.googleapis.com/auth/youtube.force-ssl",
     "https://www.googleapis.com/auth/yt-analytics.readonly",
-    "https://www.googleapis.com/auth/spreadsheets",
 ]
 
 
