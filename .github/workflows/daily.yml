@@ -36,6 +36,7 @@ jobs:
           YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
           YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+          SHEETS_REFRESH_TOKEN: ${{ secrets.SHEETS_REFRESH_TOKEN }}
           SHEET_ID: ${{ secrets.SHEET_ID }}
           VIDEO_PRIVACY: ${{ secrets.VIDEO_PRIVACY }}
         run: python main.py
