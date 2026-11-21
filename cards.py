@@ -97,8 +97,8 @@ def _stamp(d):
 def make_cards(card1_text, card2_text, card1_path, card2_path):
     """card1_text=本音、card2_text=言い換え（どちらも接頭辞なしの本文）。
 
-    元のシステムの Q. / A. 接頭辞は付けない。カード2の本文がすでに
-    「言い換え：『…』。…」で始まるため、そのまま表示する。
+    元のシステムの Q. / A. 接頭辞は付けない。カード2の本文は
+    「『…』。…」で始まるため、そのまま表示する。
     """
     qf = _font("sans", 64, bold=True)
     af = _font("sans", 60, bold=True)
